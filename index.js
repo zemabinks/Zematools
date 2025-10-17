@@ -1,3 +1,4 @@
+import express from 'express'; // install with `npm install express`
 import { Client, GatewayIntentBits, Events, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js';
 import 'dotenv/config';
 
@@ -11,7 +12,6 @@ client.on(Events.InteractionCreate, async interaction => {
   if (!interaction.isChatInputCommand()) return;
 
   if (interaction.commandName === 'zematools') {
-    // Embed
     const embed = new EmbedBuilder()
       .setTitle('🎉 ZemaTools just got even better!')
       .setURL('https://docs.tomatenkuchen.com/messageeditor')
@@ -20,7 +20,6 @@ client.on(Events.InteractionCreate, async interaction => {
       )
       .setColor(2093311);
 
-    // Buttons
     const row1 = new ActionRowBuilder().addComponents(
       new ButtonBuilder()
         .setLabel('ZemaTools Website')
@@ -32,7 +31,6 @@ client.on(Events.InteractionCreate, async interaction => {
         .setURL('https://tomatenkuchen.com')
     );
 
-    // Send the message
     await interaction.reply({
       content: '🚀 ZemaTools FC26 🚀',
       embeds: [embed],
@@ -42,3 +40,17 @@ client.on(Events.InteractionCreate, async interaction => {
 });
 
 client.login(process.env.DISCORD_TOKEN);
+
+// =====================
+// Tiny web server for Render
+// =====================
+const app = express();
+const PORT = process.env.PORT || 3000; // Render sets the PORT automatically
+
+app.get('/', (req, res) => {
+  res.send('Bot is running!');
+});
+
+app.listen(PORT, () => {
+  console.log(`✅ Web server running on port ${PORT}`);
+});
