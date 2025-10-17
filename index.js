@@ -1,4 +1,4 @@
-import { Client, GatewayIntentBits, Events, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, SlashCommandBuilder } from 'discord.js';
+import { Client, GatewayIntentBits, Events, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, SlashCommandBuilder, REST, Routes } from 'discord.js';
 import express from 'express';
 import 'dotenv/config';
 
@@ -51,17 +51,25 @@ client.on(Events.InteractionCreate, async interaction => {
   // ----- /active-dev-badge -----
   if (interaction.commandName === 'active-dev-badge') {
     const embed = new EmbedBuilder()
-      .setTitle('🎖️ How to Claim Your Active Developer Badge')
-      .setDescription(`
-1️⃣ Run a command with your bot in any server.  
-2️⃣ Enable "Use data to improve Discord" in [Privacy & Safety Settings](https://discord.com/settings/privacy).  
-3️⃣ Set up a Community Server for your bot in the [Developer Portal](https://discord.com/developers/applications).  
-4️⃣ Select a Developer News Channel in your Community Server.  
-5️⃣ Visit the [Active Developer Badge page](https://discord.com/developers/active-developer) and claim your badge.
-      `)
-      .setColor(0x00AE86);
+      .setTitle('🤖 Command Ran Successfully')
+      .setDescription(
+        `You have successfully executed the command to get the **Active** \n**Developer Badge**!\n\nAfter Discord processes the execution of the command, **you** will \nbe able to claim the badge by pressing the button below. Please \nnote that Discord may take up to **24 hours** to process your \neligibility.`
+      )
+      .setColor(5784319)
+      .setThumbnail('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8aMugg7LWDXqkWc-9JlApM4MLPXhi-EPDYA&s');
 
-    await interaction.reply({ embeds: [embed] });
+    const row1 = new ActionRowBuilder().addComponents(
+      new ButtonBuilder()
+        .setLabel('⌛ Check Status')
+        .setStyle(ButtonStyle.Link)
+        .setURL('https://discord.com/developers/active-developer')
+    );
+
+    await interaction.reply({
+      content: '',
+      embeds: [embed],
+      components: [row1]
+    });
   }
 });
 
@@ -87,9 +95,8 @@ app.listen(PORT, () => {
 // =====================
 // Slash Command Registration
 // =====================
-import { REST, Routes } from 'discord.js';
-
 const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
+
 const commands = [
   new SlashCommandBuilder()
     .setName('zematools')
