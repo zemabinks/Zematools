@@ -1,28 +1,18 @@
-const { Client, GatewayIntentBits } = require('discord.js');
+import { Client, GatewayIntentBits, Events } from 'discord.js';
+import 'dotenv/config';
 
-const client = new Client({
-  intents: [
-    GatewayIntentBits.Guilds,
-    GatewayIntentBits.GuildMessages,
-    GatewayIntentBits.MessageContent // required to read message text (privileged)
-  ]
+const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+
+client.once(Events.ClientReady, (c) => {
+  console.log(`🤖 Logged in as ${c.user.tag}`);
 });
 
-client.once('ready', () => {
-  console.log(`Logged in as ${client.user.tag}`);
-});
+client.on(Events.InteractionCreate, async (interaction) => {
+  if (!interaction.isChatInputCommand()) return;
 
-// simple message command
-client.on('messageCreate', message => {
-  if (message.author.bot) return;
-  if (message.content === '!ping') {
-    message.reply('Pong!');
+  if (interaction.commandName === 'ping') {
+    await interaction.reply('🏓 Pong!');
   }
 });
 
-const token = process.env.DISCORD_TOKEN;
-if (!token) {
-  console.error('Missing DISCORD_TOKEN environment variable');
-  process.exit(1);
-}
-client.login(token);
+client.login(process.env.DISCORD_TOKEN);
