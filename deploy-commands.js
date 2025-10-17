@@ -1,15 +1,14 @@
 import { REST, Routes, SlashCommandBuilder } from 'discord.js';
 import 'dotenv/config';
 
-// load env variables
 const { DISCORD_TOKEN, CLIENT_ID, GUILD_ID } = process.env;
 
-// define commands
+// Define your commands
 const commands = [
   new SlashCommandBuilder()
     .setName('ping')
     .setDescription('Replies with Pong!')
-    .toJSON(),
+    .toJSON()
 ];
 
 const rest = new REST({ version: '10' }).setToken(DISCORD_TOKEN);
