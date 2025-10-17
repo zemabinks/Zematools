@@ -11,27 +11,33 @@ client.on(Events.InteractionCreate, async interaction => {
   if (!interaction.isChatInputCommand()) return;
 
   if (interaction.commandName === 'zematools') {
-    // Create an embed
+    // Embed
     const embed = new EmbedBuilder()
-      .setTitle('⚡ ZemaTools is here!')
-      .setDescription('Complete SBCs faster and cheaper. Check out the links below.')
-      .setColor(0x00AE86) // teal color
-      .setURL('https://example.com') // optional: title clickable
-      .setFooter({ text: 'ZemaTools Bot', iconURL: 'https://i.imgur.com/AfFp7pu.png' });
+      .setTitle('🎉 ZemaTools just got even better!')
+      .setURL('https://docs.tomatenkuchen.com/messageeditor')
+      .setDescription(
+        '✅ Complete SBCs faster\n🎁 Complete them cheaper\n\n💾 Download [ZemaTools](https://zematools.iceiy.com/) and [AutoSBC](https://autosbc.app/userscript/autosbc.user.js)'
+      )
+      .setColor(2093311);
 
-    // Create buttons
-    const buttons = new ActionRowBuilder().addComponents(
+    // Buttons
+    const row1 = new ActionRowBuilder().addComponents(
       new ButtonBuilder()
-        .setLabel('Visit Website')
+        .setLabel('ZemaTools Website')
         .setStyle(ButtonStyle.Link)
-        .setURL('https://example.com'),
+        .setURL('https://zematools.iceiy.com/'),
       new ButtonBuilder()
-        .setLabel('Join Discord')
+        .setLabel('ZemaTools Website BACKUP')
         .setStyle(ButtonStyle.Link)
-        .setURL('https://discord.gg/yourserver')
+        .setURL('https://tomatenkuchen.com')
     );
 
-    await interaction.reply({ embeds: [embed], components: [buttons] });
+    // Send the message
+    await interaction.reply({
+      content: '🚀 ZemaTools FC26 🚀',
+      embeds: [embed],
+      components: [row1]
+    });
   }
 });
 

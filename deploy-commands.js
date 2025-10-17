@@ -3,11 +3,10 @@ import 'dotenv/config';
 
 const { DISCORD_TOKEN, CLIENT_ID, GUILD_ID } = process.env;
 
-// Only one command now: /zematools
 const commands = [
   new SlashCommandBuilder()
     .setName('zematools')
-    .setDescription('Shows the ZemaTools message with embed and buttons')
+    .setDescription('Sends the ZemaTools message')
     .toJSON(),
 ];
 
