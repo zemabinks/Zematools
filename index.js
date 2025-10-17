@@ -48,8 +48,8 @@ client.on(Events.InteractionCreate, async interaction => {
     });
   }
 
-  // ----- /active-dev-baadge -----
-  if (interaction.commandName === 'active-dev-baadge') {
+  // ----- /active-dev-badge -----
+  if (interaction.commandName === 'active-dev-badge') {
     const embed = new EmbedBuilder()
       .setTitle('🎖️ How to Claim Your Active Developer Badge')
       .setDescription(`
@@ -96,7 +96,7 @@ const commands = [
     .setDescription('Sends the ZemaTools message with embed and buttons')
     .toJSON(),
   new SlashCommandBuilder()
-    .setName('active-dev-baadge')
+    .setName('active-dev-badge')
     .setDescription('Guides you through claiming the Active Developer Badge on Discord')
     .toJSON()
 ];
