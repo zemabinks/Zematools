@@ -46,7 +46,7 @@ client.on(Events.InteractionCreate, async interaction => {
       );
 
       await interaction.reply({
-        content: '🚀 ZemaTools FC26 🚀',
+        content: '🚀 *ZemaTools FC26* 🚀',
         embeds: [embed],
         components: [row]
       });
