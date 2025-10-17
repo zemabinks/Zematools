@@ -2,11 +2,11 @@ import { Client, GatewayIntentBits, Events, EmbedBuilder, ActionRowBuilder, Butt
 import express from 'express';
 import 'dotenv/config';
 
+// =====================
+// Discord Bot Setup
+// =====================
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
-// =====================
-// Discord bot
-// =====================
 client.once(Events.ClientReady, c => {
   console.log(`🤖 Logged in as ${c.user.tag}`);
 });
@@ -36,6 +36,7 @@ client.on(Events.InteractionCreate, async interaction => {
         .setURL('https://zematools.netlify.app/')
     );
 
+    // Send message
     await interaction.reply({
       content: '🚀 ZemaTools FC26 🚀',
       embeds: [embed],
@@ -48,7 +49,7 @@ client.on(Events.InteractionCreate, async interaction => {
 client.login(process.env.DISCORD_TOKEN);
 
 // =====================
-// Tiny web server for Render Web Service
+// Tiny Web Server for Render Web Service
 // =====================
 const app = express();
 const PORT = process.env.PORT || 3000;
