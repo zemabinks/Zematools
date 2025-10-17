@@ -60,6 +60,10 @@ client.on(Events.InteractionCreate, async interaction => {
 
       const row1 = new ActionRowBuilder().addComponents(
         new ButtonBuilder()
+          .setLabel('⌛ Check Status')
+          .setStyle(ButtonStyle.Link)
+          .setURL('https://discord.com/developers/active-developer'),
+        new ButtonBuilder()
           .setCustomId('dismiss_active_dev')
           .setLabel('Dismiss')
           .setStyle(ButtonStyle.Secondary)
