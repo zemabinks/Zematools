@@ -3,12 +3,12 @@ import 'dotenv/config';
 
 const { DISCORD_TOKEN, CLIENT_ID, GUILD_ID } = process.env;
 
-// Define your commands
+// Only one command now: /zematools
 const commands = [
   new SlashCommandBuilder()
-    .setName('ping')
-    .setDescription('Replies with Pong!')
-    .toJSON()
+    .setName('zematools')
+    .setDescription('Shows the ZemaTools message with embed and buttons')
+    .toJSON(),
 ];
 
 const rest = new REST({ version: '10' }).setToken(DISCORD_TOKEN);
