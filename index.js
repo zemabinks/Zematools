@@ -62,11 +62,7 @@ client.on(Events.InteractionCreate, async interaction => {
         new ButtonBuilder()
           .setLabel('⌛ Check Status')
           .setStyle(ButtonStyle.Link)
-          .setURL('https://discord.com/developers/active-developer'),
-        new ButtonBuilder()
-          .setCustomId('dismiss_active_dev')
-          .setLabel('Dismiss')
-          .setStyle(ButtonStyle.Secondary)
+          .setURL('https://discord.com/developers/active-developer')
       );
 
       await interaction.reply({
@@ -74,13 +70,6 @@ client.on(Events.InteractionCreate, async interaction => {
         components: [row1],
         ephemeral: true // only visible to the user who ran it
       });
-    }
-  }
-
-  // ----- Button Interaction Handler -----
-  if (interaction.isButton()) {
-    if (interaction.customId === 'dismiss_active_dev') {
-      await interaction.update({ content: '✅ Message dismissed.', embeds: [], components: [] });
     }
   }
 });
