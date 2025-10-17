@@ -9,10 +9,6 @@ const commands = [
   new SlashCommandBuilder()
     .setName('active-dev-badge')
     .setDescription('Guides you through claiming the Active Developer Badge on Discord')
-    .toJSON(),
-  new SlashCommandBuilder()
-    .setName('launchzematools')
-    .setDescription('Gives you a button to open the ZemaTools Render link')
     .toJSON()
 ];
 

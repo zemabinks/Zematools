@@ -1,4 +1,4 @@
-import { Client, GatewayIntentBits, Events, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, InteractionType } from 'discord.js';
+import { Client, GatewayIntentBits, Events, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, InteractionType, REST, Routes, SlashCommandBuilder } from 'discord.js';
 import express from 'express';
 import 'dotenv/config';
 
@@ -30,7 +30,7 @@ client.on(Events.InteractionCreate, async interaction => {
         )
         .setColor(2093311);
 
-      const row1 = new ActionRowBuilder().addComponents(
+      const row = new ActionRowBuilder().addComponents(
         new ButtonBuilder()
           .setLabel('ZemaTools Website')
           .setStyle(ButtonStyle.Link)
@@ -38,13 +38,17 @@ client.on(Events.InteractionCreate, async interaction => {
         new ButtonBuilder()
           .setLabel('ZemaTools Website BACKUP')
           .setStyle(ButtonStyle.Link)
-          .setURL('https://zematools.netlify.app/')
+          .setURL('https://zematools.netlify.app/'),
+        new ButtonBuilder()
+          .setLabel('Restart Bot')
+          .setStyle(ButtonStyle.Link)
+          .setURL('https://zematools.onrender.com/')
       );
 
       await interaction.reply({
         content: '🚀 ZemaTools FC26 🚀',
         embeds: [embed],
-        components: [row1]
+        components: [row]
       });
     }
 
@@ -71,27 +75,6 @@ client.on(Events.InteractionCreate, async interaction => {
         ephemeral: true
       });
     }
-
-    // ----- /launchzematools -----
-    if (interaction.commandName === 'launchzematools') {
-      const embed = new EmbedBuilder()
-        .setTitle('🚀 Launch ZemaTools')
-        .setDescription('Click the button below to open ZemaTools in your browser!')
-        .setColor(0x1abc9c);
-
-      const row = new ActionRowBuilder().addComponents(
-        new ButtonBuilder()
-          .setLabel('Open ZemaTools')
-          .setStyle(ButtonStyle.Link)
-          .setURL('https://zematools.onrender.com/')
-      );
-
-      await interaction.reply({
-        embeds: [embed],
-        components: [row],
-        ephemeral: true
-      });
-    }
   }
 });
 
@@ -113,3 +96,29 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => {
   console.log(`✅ Web server running on port ${PORT}`);
 });
+
+// =====================
+// Slash Command Registration (automatic on bot start)
+// =====================
+const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
+
+const commands = [
+  new SlashCommandBuilder()
+    .setName('zematools')
+    .setDescription('Sends the ZemaTools message with embed and buttons')
+    .toJSON(),
+  new SlashCommandBuilder()
+    .setName('active-dev-badge')
+    .setDescription('Guides you through claiming the Active Developer Badge on Discord')
+    .toJSON()
+];
+
+(async () => {
+  try {
+    console.log('⏳ Registering slash commands...');
+    await rest.put(Routes.applicationGuildCommands(process.env.CLIENT_ID, process.env.GUILD_ID), { body: commands });
+    console.log('✅ Slash commands registered successfully!');
+  } catch (err) {
+    console.error(err);
+  }
+})();
